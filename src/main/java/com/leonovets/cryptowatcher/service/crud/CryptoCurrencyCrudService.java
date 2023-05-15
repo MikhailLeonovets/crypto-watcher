@@ -16,6 +16,10 @@ public interface CryptoCurrencyCrudService {
 
     CryptoCurrency save(final CryptoCurrency cryptoCurrency) throws EntityAlreadyExistsException;
 
+    List<CryptoCurrency> findAll();
+
+    CryptoCurrency findBySymbol(final String symbol) throws EntityNotFoundException;
+
     CryptoCurrency update(final CryptoCurrency cryptoCurrency) throws EntityNotFoundException;
 
 }

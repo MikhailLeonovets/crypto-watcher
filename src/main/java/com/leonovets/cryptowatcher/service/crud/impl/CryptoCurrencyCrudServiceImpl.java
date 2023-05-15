@@ -2,6 +2,7 @@ package com.leonovets.cryptowatcher.service.crud.impl;
 
 import static com.leonovets.cryptowatcher.service.constants.ExceptionMessage.CRYPTO_CURRENCY_ALREADY_EXISTS;
 import static com.leonovets.cryptowatcher.service.constants.ExceptionMessage.CRYPTO_CURRENCY_NOT_FOUND;
+import static com.leonovets.cryptowatcher.service.constants.ExceptionMessage.CRYPTO_CURRENCY_NOT_FOUND_BY_SYMBOL;
 import com.leonovets.cryptowatcher.repository.CryptoCurrencyRepository;
 import com.leonovets.cryptowatcher.repository.entity.CryptoCurrency;
 import com.leonovets.cryptowatcher.service.crud.CryptoCurrencyCrudService;
@@ -48,6 +49,20 @@ public class CryptoCurrencyCrudServiceImpl implements CryptoCurrencyCrudService 
         }
         return cryptoCurrencyRepository.save(cryptoCurrency);
     }
+
+    @Transactional
+    @Override
+    public List<CryptoCurrency> findAll() {
+        return cryptoCurrencyRepository.findAll();
+    }
+
+    @Override
+    public CryptoCurrency findBySymbol(final String symbol) throws EntityNotFoundException {
+        return cryptoCurrencyRepository.findBySymbol(symbol).orElseThrow(
+                () -> new EntityNotFoundException(String.format(CRYPTO_CURRENCY_NOT_FOUND_BY_SYMBOL, symbol))
+        );
+    }
+
 
     @Transactional
     @Override
