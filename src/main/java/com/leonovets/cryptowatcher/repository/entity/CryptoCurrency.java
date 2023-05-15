@@ -7,8 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * @author Mikhail.Leonovets
@@ -27,4 +29,16 @@ public class CryptoCurrency {
     @Column(name = "current_price")
     private BigDecimal currentPrice;
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        final CryptoCurrency that = (CryptoCurrency) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, symbol, currentPrice);
+    }
 }
