@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Mikhail.Leonovets
  * @since 05/15/2023 - 14:02
@@ -25,5 +27,11 @@ public class AppUserCrudServiceImpl implements AppUserCrudService {
             throw new EntityAlreadyExistsException(String.format(APP_USER_ALREADY_EXISTS, appUser.getUsername()));
         }
         return appUserRepository.save(appUser);
+    }
+
+    @Transactional
+    @Override
+    public List<AppUser> findAllByCryptoCurrency_Id(final Long cryptoCurrencyId) {
+        return appUserRepository.findAllByCryptoCurrency_Id(cryptoCurrencyId);
     }
 }

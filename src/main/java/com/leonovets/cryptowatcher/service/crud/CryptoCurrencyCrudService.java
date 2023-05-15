@@ -22,4 +22,6 @@ public interface CryptoCurrencyCrudService {
 
     CryptoCurrency update(final CryptoCurrency cryptoCurrency) throws EntityNotFoundException;
 
+    List<CryptoCurrency> updateAll(final List<CryptoCurrency> cryptoCurrencies) throws EntityNotFoundException;
+
 }

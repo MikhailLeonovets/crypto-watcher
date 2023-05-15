@@ -72,4 +72,21 @@ public class CryptoCurrencyCrudServiceImpl implements CryptoCurrencyCrudService 
         }
         return cryptoCurrencyRepository.save(cryptoCurrency);
     }
+
+    @Transactional
+    @Override
+    public List<CryptoCurrency> updateAll(final List<CryptoCurrency> cryptoCurrencies) throws EntityNotFoundException {
+        final List<CryptoCurrency> cryptoCurrenciesNotFound = cryptoCurrencies.stream()
+                .filter(cryptoCurrency -> cryptoCurrencyRepository.findById(cryptoCurrency.getId()).isEmpty())
+                .toList();
+        if (cryptoCurrenciesNotFound.size() > 0) {
+            StringBuilder message = new StringBuilder();
+            cryptoCurrenciesNotFound
+                    .forEach(cryptoCurrency -> message.append(
+                            String.format(CRYPTO_CURRENCY_NOT_FOUND + "\n", cryptoCurrency.getId()
+                            )));
+            throw new EntityNotFoundException(message.toString());
+        }
+        return cryptoCurrencyRepository.saveAll(cryptoCurrencies);
+    }
 }

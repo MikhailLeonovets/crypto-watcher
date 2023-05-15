@@ -1,6 +1,8 @@
 package com.leonovets.cryptowatcher.service.business;
 
 import com.leonovets.cryptowatcher.service.dto.AppUserDto;
+import com.leonovets.cryptowatcher.service.exception.EntityAlreadyExistsException;
+import com.leonovets.cryptowatcher.service.exception.EntityNotFoundException;
 
 /**
  * @author Mikhail.Leonovets
@@ -8,6 +10,6 @@ import com.leonovets.cryptowatcher.service.dto.AppUserDto;
  */
 public interface AppUserService {
 
-    void registerAppUser(final AppUserDto appUserDto);
+    void registerAppUser(final AppUserDto appUserDto) throws EntityNotFoundException, EntityAlreadyExistsException;
 
 }
