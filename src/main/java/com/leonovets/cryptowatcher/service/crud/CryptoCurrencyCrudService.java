@@ -1,6 +1,8 @@
 package com.leonovets.cryptowatcher.service.crud;
 
 import com.leonovets.cryptowatcher.repository.entity.CryptoCurrency;
+import com.leonovets.cryptowatcher.service.exception.EntityAlreadyExistsException;
+import com.leonovets.cryptowatcher.service.exception.EntityNotFoundException;
 
 import java.util.List;
 
@@ -10,10 +12,10 @@ import java.util.List;
  */
 public interface CryptoCurrencyCrudService {
 
-    void saveAll(final List<CryptoCurrency> cryptoCurrencies);
+    List<CryptoCurrency> saveAll(final List<CryptoCurrency> cryptoCurrencies) throws EntityAlreadyExistsException;
 
-    void save(final CryptoCurrency cryptoCurrency);
+    CryptoCurrency save(final CryptoCurrency cryptoCurrency) throws EntityAlreadyExistsException;
 
-    void update(final CryptoCurrency cryptoCurrency);
+    CryptoCurrency update(final CryptoCurrency cryptoCurrency) throws EntityNotFoundException;
 
 }

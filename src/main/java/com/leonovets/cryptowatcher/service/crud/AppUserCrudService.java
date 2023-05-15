@@ -1,6 +1,7 @@
 package com.leonovets.cryptowatcher.service.crud;
 
 import com.leonovets.cryptowatcher.repository.entity.AppUser;
+import com.leonovets.cryptowatcher.service.exception.EntityAlreadyExistsException;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppUserCrudService {
 
-    void save(final AppUser appUser);
+    AppUser save(final AppUser appUser) throws EntityAlreadyExistsException;
 
 }
