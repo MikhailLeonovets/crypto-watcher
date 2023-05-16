@@ -11,4 +11,6 @@ public interface ExceptionMessage {
     String CRYPTO_CURRENCY_ALREADY_EXISTS = "Crypto currency with \"%s\" symbol already exists";
     String CRYPTO_CURRENCY_NOT_FOUND = "Crypto currency with \"%s\" id not found";
     String CRYPTO_CURRENCY_NOT_FOUND_BY_SYMBOL = "Crypto currency with \"%s\" symbol not found";
+
+    String NULL_BODY = "Null body not acceptable";
 }
