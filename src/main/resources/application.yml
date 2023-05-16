@@ -13,7 +13,7 @@ spring:
         jdbc:
           batch_size: 100
         order_inserts: true
-    show-sql: true
+    show-sql: false
 crypto_currency:
   watcher:
     open_api: coin_lore
