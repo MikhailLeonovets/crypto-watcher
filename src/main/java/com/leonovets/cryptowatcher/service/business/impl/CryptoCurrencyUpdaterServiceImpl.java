@@ -12,6 +12,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
@@ -40,15 +41,22 @@ public class CryptoCurrencyUpdaterServiceImpl implements CryptoCurrencyUpdaterSe
             final CryptoCurrency cryptoCurrencyFromOpenApi = cryptoCurrenciesFromOpenApi
                     .stream()
                     .filter(cryptoCurrency -> cryptoCurrency.getId().equals(cryptoCurrencyFromDb.getId()))
-                    .findAny().orElseThrow();
-            final float percentChange = (cryptoCurrencyFromOpenApi.getCurrentPrice()
+                    .findFirst().orElseThrow();
+            final float percentChange = cryptoCurrencyFromOpenApi.getCurrentPrice()
+                    .setScale(2, RoundingMode.HALF_UP)
                     .divide(cryptoCurrencyFromDb.getCurrentPrice(), RoundingMode.HALF_UP)
-                    .floatValue() - 1) * 100;
-            if (percentChange > 1F) {
+                    .subtract(new BigDecimal(1))
+                    .multiply(new BigDecimal(100))
+                    .floatValue();
+            if (Math.abs(percentChange) >= 1F) {
                 for (final AppUser appUser : appUserCrudService.findAllByCryptoCurrency_Id(cryptoCurrencyFromDb.getId())) {
-                    final float priceChangesForUser = (cryptoCurrencyFromOpenApi.getCurrentPrice()
+                    final float priceChangesForUser = cryptoCurrencyFromOpenApi.getCurrentPrice()
+                            .setScale(4, RoundingMode.HALF_UP)
                             .divide(appUser.getFirstCryptoPrice(), RoundingMode.HALF_UP)
-                            .floatValue() - 1) * 100;
+                            .subtract(new BigDecimal(1))
+                            .multiply(new BigDecimal(100))
+                            .setScale(2, RoundingMode.HALF_UP)
+                            .floatValue();
                     log.warn("CryptoCurrency symbol: " + cryptoCurrencyFromDb.getSymbol()
                             + ", Username: " + appUser.getUsername()
                             + ", Percent changes for all the time: " + priceChangesForUser
