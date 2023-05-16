@@ -41,7 +41,7 @@ public class CryptoCurrencyCrudServiceImpl implements CryptoCurrencyCrudService 
     }
 
     @Override
-    public List<CryptoCurrency> saveOrUpdateAll(final List<CryptoCurrency> cryptoCurrencies) throws EntityAlreadyExistsException {
+    public List<CryptoCurrency> saveOrUpdateAll(final List<CryptoCurrency> cryptoCurrencies) {
         return cryptoCurrencyRepository.saveAll(cryptoCurrencies);
     }
 
