@@ -1,5 +1,6 @@
 package com.leonovets.cryptowatcher.service.business;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.leonovets.cryptowatcher.repository.entity.CryptoCurrency;
 
 import java.util.List;
@@ -10,6 +11,6 @@ import java.util.List;
  */
 public interface CryptoCurrencyOpenApiConsumerService<PARAM> {
 
-    List<CryptoCurrency> getCryptoCurrencies(final List<PARAM> ids);
+    List<CryptoCurrency> getCryptoCurrencies(final List<PARAM> ids) throws JsonProcessingException;
 
 }
