@@ -8,7 +8,6 @@ import com.leonovets.cryptowatcher.repository.entity.CryptoCurrency;
 import com.leonovets.cryptowatcher.service.business.CryptoCurrencyOpenApiConsumerService;
 import com.leonovets.cryptowatcher.service.mapper.CryptoCurrencyFromCoinLoreDeserializer;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -18,17 +17,11 @@ import java.util.List;
  * @since 05/15/2023 - 22:11
  */
 
-@Service
 public class CryptoCurrencyCoinLoreConsumerService implements CryptoCurrencyOpenApiConsumerService<String> {
     private ObjectMapper objectMapper;
 
     @Override
-    public List<CryptoCurrency> getCryptoCurrencies(final List<String> ids) {
-        return null;
-    }
-
-    private List<CryptoCurrency> getCryptoCurrenciesFromCoinLore(final List<String> ids)
-            throws JsonProcessingException {
+    public List<CryptoCurrency> getCryptoCurrencies(final List<String> ids) throws JsonProcessingException {
         final String url = "https://api.coinlore.net/api/ticker/?id=";
         final RestTemplate restTemplate = new RestTemplate();
         final ResponseEntity<String> response = restTemplate.getForEntity(url + String.join(",", ids), String.class);

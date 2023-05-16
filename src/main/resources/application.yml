@@ -14,3 +14,6 @@ spring:
           batch_size: 100
         order_inserts: true
     show-sql: true
+crypto_currency:
+  watcher:
+    open_api: coin_lore
