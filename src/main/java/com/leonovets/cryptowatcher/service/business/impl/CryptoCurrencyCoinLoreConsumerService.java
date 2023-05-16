@@ -16,7 +16,6 @@ import java.util.List;
  * @author Mikhail.Leonovets
  * @since 05/15/2023 - 22:11
  */
-
 public class CryptoCurrencyCoinLoreConsumerService implements CryptoCurrencyOpenApiConsumerService<String> {
     private ObjectMapper objectMapper;
 

@@ -32,7 +32,7 @@ public class CryptoCurrencyScheduleWatcherConfig implements SchedulingConfigurer
         taskRegistrar.setScheduler(taskExecutor());
         taskRegistrar.addTriggerTask(
                 cryptoCurrencyUpdaterService::cryptoCurrencyUpdate,
-                new CronTrigger("*/1 * * * * ?")
+                new CronTrigger("0 */1 * * * ?")
         );
     }
 }

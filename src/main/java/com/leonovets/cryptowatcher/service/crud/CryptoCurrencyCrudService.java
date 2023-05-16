@@ -14,6 +14,9 @@ public interface CryptoCurrencyCrudService {
 
     List<CryptoCurrency> saveAll(final List<CryptoCurrency> cryptoCurrencies) throws EntityAlreadyExistsException;
 
+    List<CryptoCurrency> saveOrUpdateAll(final List<CryptoCurrency> cryptoCurrencies) throws EntityAlreadyExistsException;
+
+
     CryptoCurrency save(final CryptoCurrency cryptoCurrency) throws EntityAlreadyExistsException;
 
     List<CryptoCurrency> findAll();

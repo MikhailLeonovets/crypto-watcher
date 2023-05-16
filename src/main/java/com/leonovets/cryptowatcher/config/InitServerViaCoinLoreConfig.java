@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Mikhail.Leonovets
@@ -33,13 +34,16 @@ public class InitServerViaCoinLoreConfig {
                 readCryptoCurrenciesPreconfigFile().stream()
                         .map(cryptoCurrency -> cryptoCurrency.getId().toString())
                         .toList());
-        cryptoCurrencyCrudService.saveAll(cryptoCurrencies);
+        cryptoCurrencyCrudService.saveOrUpdateAll(cryptoCurrencies);
         return cryptoCurrencyCoinLoreConsumerService;
     }
 
     @SneakyThrows
     private List<CryptoCurrency> readCryptoCurrenciesPreconfigFile() {
-        return new ObjectMapper().readValue(new File("/cryptocurrencies_coinlore_preconfig.json"),
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        return new ObjectMapper().readValue(new File(Objects.requireNonNull(
+                        classloader.getResource("cryptocurrencies_coinlore_preconfig.json")).toURI()
+                ),
                 new TypeReference<List<CryptoCurrency>>() {
                 });
     }
